@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane layoutX="10.0" layoutY="10.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codetreatise.controller.ServeurSideController">
+   <children>
+      <ImageView fitHeight="700.0" fitWidth="700.0" layoutX="-1.0" layoutY="-7.0" opacity="0.4" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/40081640-seamless-pattern-background-fast-food-.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="66.0" fitWidth="58.0" layoutX="307.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/burger.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="246.0" layoutY="68.0" prefHeight="43.0" prefWidth="201.0" text="LMAKLA.COM" textFill="#bf1b1b">
+         <font>
+            <Font name="System Bold" size="29.0" />
+         </font>
+      </Label>
+      <Line endX="107.0" layoutX="340.0" layoutY="111.0" startX="-100.0" strokeWidth="3.0" />
+      <Label layoutX="146.0" layoutY="126.0" text="Numero de Table">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="308.0" layoutY="126.0" text="Entree">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="524.0" layoutY="126.0" text="Drink">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="393.0" layoutY="126.0" text="Plat Principale">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="numeroTable" focusColor="RED" labelFloat="true" layoutX="144.0" layoutY="166.0" opacity="0.66" prefHeight="30.0" prefWidth="114.0" style="-fx-background-color: white;" unFocusColor="BLACK">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </JFXTextField>
+      <JFXComboBox fx:id="comboBoxEntree" layoutX="284.0" layoutY="168.0" prefHeight="28.0" prefWidth="93.0" promptText=" Entree" style="-fx-background-color: white;" />
+      <JFXComboBox fx:id="comboBoxPlat" layoutX="393.0" layoutY="167.0" prefHeight="28.0" prefWidth="93.0" promptText="  Plat" style="-fx-background-color: white;" />
+      <JFXComboBox fx:id="comboBoxDrink" layoutX="501.0" layoutY="167.0" prefHeight="28.0" prefWidth="93.0" promptText=" Drink" style="-fx-background-color: white;" />
+      <TableView fx:id="tableCommandes" layoutX="13.0" layoutY="257.0" prefHeight="367.0" prefWidth="669.0">
+        <columns>
+          <TableColumn fx:id="numCmd" minWidth="90.0" prefWidth="58.0" text="NumCmd" />
+          <TableColumn fx:id="numTable" minWidth="110.0" prefWidth="65.0" text="NumTable" />
+            <TableColumn fx:id="entree" minWidth="140.0" prefWidth="85.0" text="Entree" />
+            <TableColumn fx:id="plat" minWidth="200.0" prefWidth="153.0" text="Plat" />
+            <TableColumn fx:id="drink" minWidth="128.0" prefWidth="89.0" resizable="false" text="Drink" />
+        </columns>
+       
+      </TableView>
+      <JFXButton fx:id="save" buttonType="RAISED" layoutX="140.0" layoutY="217.0" onAction="#enregitrer" prefHeight="29.0" prefWidth="457.0" ripplerFill="WHITE" style="-fx-background-color: green;" text="Enregistrer la commande" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="14.0" onAction="#deconnecter" prefHeight="25.0" prefWidth="106.0" style="-fx-background-color: red;" text="Se Deconnecter" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="11.0" />
+         </font></JFXButton>
+      <Text layoutX="536.0" layoutY="684.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lmakla.com @ Copyright 2020" />
+    
+   </children>
+</AnchorPane>

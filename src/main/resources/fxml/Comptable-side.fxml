@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="482.0" prefWidth="892.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.codetreatise.controller.ComptableSideController">
+   <children>
+      <ImageView fitHeight="466.0" fitWidth="480.0" layoutX="-1.0" layoutY="7.0" opacity="0.4" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/40081640-seamless-pattern-background-fast-food-.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="66.0" fitWidth="58.0" layoutX="202.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/burger.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="141.0" layoutY="65.0" prefHeight="43.0" prefWidth="201.0" text="LMAKLA.COM" textFill="#bf1b1b">
+         <font>
+            <Font name="System Bold" size="29.0" />
+         </font>
+      </Label>
+      <Line endX="107.0" layoutX="235.0" layoutY="108.0" startX="-100.0" strokeWidth="3.0" />
+      <TableView fx:id="tableCommandes" layoutX="6.0" layoutY="144.0" prefHeight="275.0" prefWidth="451.0">
+         <columns>
+            <TableColumn fx:id="numCmd" prefWidth="58.0" text="NumCmd" />
+            <TableColumn fx:id="numTable" prefWidth="65.0" text="NumTable" />
+            <TableColumn fx:id="entree" prefWidth="85.0" text="Entree" />
+            <TableColumn fx:id="plat" prefWidth="153.0" text="Plat" />
+            <TableColumn fx:id="drink" prefWidth="89.0" text="Drink" />
+         </columns>
+      </TableView>
+      <Label layoutX="104.0" layoutY="114.0" text="LA LISTE DES COMMANDES :" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+      <JFXButton buttonType="RAISED" layoutX="112.0" layoutY="434.0" onAction="#detailles" style="-fx-background-color: blue;" text="Voir les detailles de la commande" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="exitButton" layoutX="6.0" layoutY="10.0" onAction="#deconnecter" prefHeight="29.0" prefWidth="102.0" style="-fx-background-color: white;" text="Se Deconnecter" textFill="RED">
+         <font>
+            <Font name="System Bold" size="11.0" />
+         </font>
+      </JFXButton>
+      <Pane layoutX="482.0" layoutY="22.0" prefHeight="412.0" prefWidth="390.0" style="-fx-background-color: #FA8072; -fx-background-radius: 20px;">
+         <children>
+            <Label fx:id="date" layoutX="59.0" layoutY="107.0" prefHeight="21.0" prefWidth="107.0" />
+            <Label layoutX="174.0" layoutY="105.0" text="Adresse : ">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="182.0" layoutY="144.0" text="Phone :">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="adresse" layoutX="239.0" layoutY="102.0" prefHeight="21.0" prefWidth="145.0" />
+            <Label fx:id="phone" layoutX="242.0" layoutY="148.0" prefHeight="17.0" prefWidth="131.0" />
+            <Label layoutX="14.0" layoutY="105.0" text="Date : ">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="32.0" fitWidth="38.0" layoutX="61.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/burger.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="113.0" layoutY="11.0" prefHeight="43.0" prefWidth="201.0" text="LMAKLA.COM" textFill="#bf1b1b">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+            </Label>
+         </children></Pane>
+      <Label layoutX="635.0" layoutY="68.0" prefHeight="45.0" prefWidth="107.0" text="Facture">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <Line endX="100.0" layoutX="676.0" layoutY="113.0" startX="-100.0" stroke="#4a9cff" strokeWidth="2.0" />
+      <Line endX="100.0" layoutX="678.0" layoutY="191.0" startX="-100.0" stroke="#4a9cff" strokeWidth="2.0" />
+      <Label layoutX="501.0" layoutY="199.0" text="Commande : ">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="577.0" layoutY="234.0" text="Entree :">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="577.0" layoutY="291.0" text="Drink :">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="577.0" layoutY="260.0" text="Plat principale :">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="entreeDemande" layoutX="737.0" layoutY="236.0" />
+      <Label fx:id="platDemande" layoutX="737.0" layoutY="262.0" />
+      <Label fx:id="DrinkDemande" layoutX="737.0" layoutY="293.0" />
+      <Label fx:id="prixE" layoutX="804.0" layoutY="234.0" />
+      <Label fx:id="prixP" layoutX="804.0" layoutY="260.0" />
+      <Label fx:id="prixD" layoutX="804.0" layoutY="291.0" />
+      <Label layoutX="516.0" layoutY="338.0" text="TOTAL :">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+      <Line endX="100.0" layoutX="684.0" layoutY="320.0" startX="-100.0" stroke="#4a9cff" strokeWidth="2.0" />
+      <Line endX="100.0" layoutX="684.0" layoutY="375.0" startX="-100.0" stroke="#4a9cff" strokeWidth="2.0" />
+      <Label layoutX="543.0" layoutY="400.0" text="MERCI POUR VOTRE VISITE">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="totalCalculer" layoutX="634.0" layoutY="344.0" />
+      <JFXButton fx:id="imprimer" buttonType="RAISED" layoutX="574.0" layoutY="444.0" prefHeight="29.0" prefWidth="210.0" style="-fx-background-color: yellow;" text="Imprimer" textFill="#110000">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>
