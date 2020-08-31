@@ -5,12 +5,9 @@
  */
 package com.codetreatise.controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -19,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import com.codetreatise.bean.Commande;
 import com.codetreatise.bean.Product;
 import com.codetreatise.config.StageManager;
+import com.codetreatise.repository.CommandeDao;
 import com.codetreatise.service.ProduitService;
 import com.codetreatise.view.FxmlView;
 import com.jfoenix.controls.JFXButton;
@@ -29,16 +27,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 /**
@@ -87,6 +80,9 @@ public class ServeurSideController implements Initializable {
 	@FXML
 	private JFXButton exitButton;
 
+	@Autowired
+	private CommandeDao commandeDao;
+	
 	@FXML
 	void deconnecter(ActionEvent event) {
 		stageManager.switchScene(FxmlView.LOGIN);
@@ -112,9 +108,14 @@ public class ServeurSideController implements Initializable {
 				l.setTitle("Ouuups !!!");
 				l.showAndWait();
 			} else {
-				commandes.add(new Commande(generateProductsID(), c, c1, c2, c3));
-				tableCommandes.getItems().clear();
-				tableCommandes.getItems().setAll(products());
+				Commande saveCommande = new Commande(c, c1, c2, c3);
+				commandeDao.save(saveCommande);
+				tableCommandes.getItems().setAll(commandeDao.findAll());
+//				commandes = (ObservableList<Commande>) commandeDao.findAll();
+//				commandes.add(new Commande(generateProductsID(), c, c1, c2, c3));
+				
+//				tableCommandes.getItems().clear();
+//				tableCommandes.getItems().setAll(products());
 				comboBoxEntree.getSelectionModel().clearSelection();
 				comboBoxPlat.getSelectionModel().clearSelection();
 				comboBoxDrink.getSelectionModel().clearSelection();
@@ -135,6 +136,7 @@ public class ServeurSideController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		/*-------------------Entree-------------------- */
+//		commandes = (ObservableList<Commande>) commandeService.findAll();
 		comboBoxEntree.setConverter(new StringConverter<Product>() {
 			@Override
 			public String toString(Product object) {
@@ -149,12 +151,9 @@ public class ServeurSideController implements Initializable {
 		});
 		List<Product> entrees = produitService.findByCategorieLibelle("Entree");
 
-//        comboBoxEntree.setItems(FXCollections.observableArrayList(
-//                (Product) new Product("Salade1"),
-//                new Product("Salade2"),
-//                new Product("Salade3"),
-//                new Product("Salade4"))
-//        		);
+        comboBoxEntree.setItems(FXCollections.observableArrayList(
+                entrees)
+        		);
 		/*-------------------Plat principale-------------------- */
 		comboBoxPlat.setConverter(new StringConverter<Product>() {
 			@Override
@@ -184,37 +183,28 @@ public class ServeurSideController implements Initializable {
 
 		});
 		List<Product> boires = produitService.findByCategorieLibelle("Boire");
-//        comboBoxDrink.setItems(FXCollections.observableArrayList(
-//                new Product("Drink1"),
-//                new Product("Drink2"),
-//                new Product("Drink3")));
+        comboBoxDrink.setItems(FXCollections.observableArrayList(
+                boires));
 		/*--------------Table -----------*/
 //        tableCommandes.getItems().setAll((Collection<Product>) commandes());
 
 // Setting table collumn controller variables
-		numCmd.setCellValueFactory(new PropertyValueFactory<>("numCmd"));
+		numCmd.setCellValueFactory(new PropertyValueFactory<>("id"));
 		numTable.setCellValueFactory(new PropertyValueFactory<>("numTable"));
 		entree.setCellValueFactory(new PropertyValueFactory<>("Entree"));
 		plat.setCellValueFactory(new PropertyValueFactory<>("Plat"));
-		drink.setCellValueFactory(new PropertyValueFactory<>("Drink"));
-		tableCommandes.getItems().setAll(products());
+		drink.setCellValueFactory(new PropertyValueFactory<>("Boire"));
+		tableCommandes.getItems().setAll(commandeDao.findAll());
 	}
 
 	private ObservableList<Commande> products() {
-
+//		loadCommndes();
 		return commandes;
 	}
-
-	int generateProductsID() {
-		int a = 1;
-
-		for (Commande o : commandes) {
-			if (o.getNumCmd() >= a) {
-				a = o.getNumCmd() + 1;
-			}
-		}
-
-		return a;
-	}
+private void loadCommndes() {
+	commandes = (ObservableList<Commande>) commandeDao.findAll();
+	
+}
+	
 
 }

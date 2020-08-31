@@ -5,70 +5,103 @@
  */
 package com.codetreatise.bean;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 /**
  *
  * @author dell
  */
+@Entity
+@Table(name="Commande")
 public class Commande {
-    int numCmd;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "id", updatable = false, nullable = false)
+	private long id;
     int numTable;
     String entree;
     String plat;
-    String drink;
+    String boire;
+   
+	public Commande() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-    public Commande(int numCmd, int numTable, String entree, String plat, String drink) {
-        this.numCmd = numCmd;
-        this.numTable = numTable;
-        this.entree = entree;
-        this.plat = plat;
-        this.drink = drink;
-    }
+	public Commande(long id, int numTable, String entree, String plat, String boire) {
+		super();
+		this.id = id;
+		this.numTable = numTable;
+		this.entree = entree;
+		this.plat = plat;
+		this.boire = boire;
+	}
 
+	public Commande(int c, String c1, String c2, String c3) {
+		// TODO Auto-generated constructor stub
+		super();
+		
+		this.numTable = c;
+		this.entree = c1;
+		this.plat = c2;
+		this.boire = c3;
+	}
 
-    public int getNumCmd() {
-        return numCmd;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public void setNumCmd(int idCmd) {
-        this.numCmd = idCmd;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public int getNumTable() {
-        return numTable;
-    }
+	public int getNumTable() {
+		return numTable;
+	}
 
-    public void setNumTable(int numTable) {
-        this.numTable = numTable;
-    }
+	public void setNumTable(int numTable) {
+		this.numTable = numTable;
+	}
 
-    public String getEntree() {
-        return entree;
-    }
+	public String getEntree() {
+		return entree;
+	}
 
-    public void setEntree(String entree) {
-        this.entree = entree;
-    }
+	public void setEntree(String entree) {
+		this.entree = entree;
+	}
 
-    public String getPlat() {
-        return plat;
-    }
+	public String getPlat() {
+		return plat;
+	}
 
-    public void setPlat(String plat) {
-        this.plat = plat;
-    }
+	public void setPlat(String plat) {
+		this.plat = plat;
+	}
 
-    public String getDrink() {
-        return drink;
-    }
+	public String getBoire() {
+		return boire;
+	}
 
-    public void setDrink(String drink) {
-        this.drink = drink;
-    }
+	public void setBoire(String boire) {
+		this.boire = boire;
+	}
 
-    @Override
-    public String toString() {
-        return "Commande{" + "numCmd=" + numCmd + ", numTable=" + numTable + ", entree=" + entree + ", plat=" + plat + ", drink=" + drink + '}';
-    }
-    
+	@Override
+	public String toString() {
+		return "Commande [id=" + id + ", numTable=" + numTable + ", entree=" + entree + ", plat=" + plat + ", boire="
+				+ boire + "]";
+	}
+
+	
+	
+
     
 }
