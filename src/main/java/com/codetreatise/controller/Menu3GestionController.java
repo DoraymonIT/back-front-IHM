@@ -11,8 +11,14 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Controller;
+
 import com.codetreatise.bean.Categorie;
 import com.codetreatise.bean.Product;
+import com.codetreatise.config.StageManager;
+import com.codetreatise.view.FxmlView;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
@@ -42,8 +48,11 @@ import javafx.util.StringConverter;
  *
  * @author pc
  */
+@Controller
 public class Menu3GestionController implements Initializable {
-
+	@Lazy
+    @Autowired	
+    private StageManager stageManager;
     @FXML
     private JFXTextField prixPlat;
 
@@ -98,24 +107,7 @@ public class Menu3GestionController implements Initializable {
 
     @FXML
     void deconnecter(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(AdminSideController.class.getResource("../view/Admin-side.fxml"));
-            Parent root;
-            root = (Parent) loader.load();
-
-            Stage stage = new Stage();
-            stage.setTitle("Home");
-            stage.setScene(new Scene(root));
-            stage.setResizable(false);
-
-            Node node = (Node) event.getSource();
-            Stage stage1 = (Stage) node.getScene().getWindow();
-            stage1.hide();
-            stage.show();
-        } catch (IOException ex) {
-            Logger.getLogger(AdminSideController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    	stageManager.switchScene(FxmlView.USER);
     }
 
     @FXML

@@ -46,7 +46,29 @@ public enum FxmlView {
 		public String getFxmlFile() {
             return "/fxml/Login.fxml";
         }
-    };
+    },
+    MenuMangement {
+        @Override
+		public String getTitle() {
+            return getStringFromResourceBundle("menu.title");
+        }
+
+        @Override
+		public String getFxmlFile() {
+            return "/fxml/Menu3Gestion.fxml";
+        }
+    },
+    HrMangement {
+        @Override
+		public String getTitle() {
+            return getStringFromResourceBundle("hr.title");
+        }
+
+        @Override
+		public String getFxmlFile() {
+            return "/fxml/Employee-Gestion.fxml";
+        }
+    };;
     
     public abstract String getTitle();
     public abstract String getFxmlFile();

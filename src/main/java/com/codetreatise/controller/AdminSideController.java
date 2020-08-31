@@ -56,46 +56,14 @@ public class AdminSideController implements Initializable {
     @FXML
     void employees(ActionEvent event) {
 
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(EmployyeGestionController.class.getResource("../view/Employee-Gestion.fxml"));
-            Parent root;
-            root = (Parent) loader.load();
-
-            Stage stage = new Stage();
-                    stage.setResizable(false);
-
-            stage.setScene(new Scene(root));
-            Node node = (Node) event.getSource();
-            Stage stage1 = (Stage) node.getScene().getWindow();
-            stage1.hide();
-            stage.show();
-        } catch (IOException ex) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
-        }
+    	stageManager.switchScene(FxmlView.HrMangement);
     }
 
 
     @FXML
     void menu(ActionEvent event) {
 
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("../view/Menu3Gestion.fxml"));
-            Parent root;
-            root = (Parent) loader.load();
-
-            Stage stage = new Stage();
-                    stage.setResizable(false);
-
-            stage.setScene(new Scene(root));
-            Node node = (Node) event.getSource();
-            Stage stage1 = (Stage) node.getScene().getWindow();
-            stage1.hide();
-            stage.show();
-        } catch (IOException ex) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
-        }
+    	stageManager.switchScene(FxmlView.MenuMangement);
     }
     @FXML
     private void exit(ActionEvent event) {
