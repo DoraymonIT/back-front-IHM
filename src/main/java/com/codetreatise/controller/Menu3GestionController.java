@@ -87,7 +87,7 @@ public class Menu3GestionController implements Initializable {
         String c2 = prixPlat.getText();
         Categorie c3 = categoriePlat.getSelectionModel().getSelectedItem();
 
-        plats.add(new Product(c1, c2, c3));
+//        plats.add(new Product(c1, c2, c3));
         tableProduits.getItems().clear();
         tableProduits.getItems().setAll(plats());
         nomPlat.setText("");
@@ -157,10 +157,10 @@ public class Menu3GestionController implements Initializable {
             }
 
         });
-        categoriePlat.setItems(FXCollections.observableArrayList(
-                new Categorie("Entree"),
-                new Categorie("Plat Principale"),
-                new Categorie("Drink")));
+//        categoriePlat.setItems(FXCollections.observableArrayList(
+//                new Categorie("Entree"),
+//                new Categorie("Plat Principale"),
+//                new Categorie("Drink")));
     }
 
     private ObservableList<Product> plats() {
