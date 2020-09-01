@@ -19,6 +19,7 @@ import com.codetreatise.bean.User;
 import com.codetreatise.config.StageManager;
 import com.codetreatise.repository.RoleDao;
 import com.codetreatise.repository.UserRepository;
+import com.codetreatise.service.UserService;
 import com.codetreatise.view.FxmlView;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -48,7 +49,11 @@ public class EmployyeGestionController implements Initializable {
     private StageManager stageManager;
 
     @FXML
-    private JFXTextField nomPrenom;
+    private JFXTextField nom;
+    @FXML
+    private JFXTextField prenom;
+    @FXML
+    private JFXTextField cnee;
 @Autowired
 private UserRepository userRepo;
 
@@ -73,30 +78,35 @@ private UserRepository userRepo;
 
     @Autowired
     private RoleDao roleDao ;
+    @Autowired
+    private UserService userDao;
     
     @FXML
     void enregitrer(ActionEvent e) {
 
-        String c2 = nomPrenom.getText();
+        String lastName = nom.getText();
+        String firstName = prenom.getText();
+        String cnE = cnee.getText();
 //        String 
 //        String c3 = fonction.getText();
         Role c4 = fonctionComboBox.getSelectionModel().getSelectedItem();
 
-        if ( c2 == null) {
+        if ( cnE == null) {
             Alert l = new Alert(Alert.AlertType.WARNING);
             l.setContentText("Veuillez Entrez d abord tous les informations !!");
             l.setTitle("Ouuups !!!");
             l.showAndWait();
 
         } else {
-//        	User userNew = new User(c, c1, c2, c3);
-//			roleDao.save(userNew);
+        	User userNew = new User( firstName, lastName, cnE,  c4.getLibelle(), lastName+"@gmail.com", lastName+cnE);
+        	userDao.save(userNew);
 //            employes.add(new Employee( c2, c3));
-            tableEmployes.getItems().clear();
-            tableEmployes.getItems().setAll(employes());
-
-            nomPrenom.setText("");
-//            fonction.setText("");
+            
+        	tableEmployes.getItems().setAll(userRepo.findAll());
+            nom.setText("");
+            prenom.setText("");
+            cnee.setText("");
+            fonctionComboBox.getSelectionModel().clearSelection();
 
         }
 

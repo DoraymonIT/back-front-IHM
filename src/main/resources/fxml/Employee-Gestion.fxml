@@ -32,7 +32,7 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="nomPrenom" focusColor="BLACK" layoutX="100.0" layoutY="101.0" prefWidth="170.0" promptText="Nom" unFocusColor="WHITE" />
+            <JFXTextField fx:id="nom" focusColor="BLACK" layoutX="100.0" layoutY="101.0" prefWidth="170.0" promptText="Nom" unFocusColor="WHITE" />
             <Label layoutX="20.0" layoutY="112.0" text="Nom :">
                <font>
                   <Font name="System Bold" size="13.0" />
@@ -47,13 +47,13 @@
             <Line endX="100.0" layoutX="151.0" layoutY="265.0" startX="-100.0" />
             <Line endX="111.0" layoutX="151.0" layoutY="33.0" startX="-100.0" />
             <JFXComboBox fx:id="fonctionComboBox" layoutX="100.0" layoutY="201.0" prefHeight="29.0" prefWidth="170.0" promptText="Fonction" />
-            <JFXTextField fx:id="nomPrenom1" focusColor="BLACK" layoutX="100.0" layoutY="56.0" prefWidth="170.0" promptText="CNE" unFocusColor="WHITE" />
+            <JFXTextField fx:id="cnee" focusColor="BLACK" layoutX="100.0" layoutY="56.0" prefWidth="170.0" promptText="CNE" unFocusColor="WHITE" />
             <Label layoutX="20.0" layoutY="65.0" text="CNE :">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="nomPrenom2" focusColor="BLACK" layoutX="100.0" layoutY="151.0" prefWidth="170.0" promptText="Prenom" unFocusColor="WHITE" />
+            <JFXTextField fx:id="prenom" focusColor="BLACK" layoutX="100.0" layoutY="151.0" prefWidth="170.0" promptText="Prenom" unFocusColor="WHITE" />
             <Label layoutX="20.0" layoutY="157.0" text="Prenom :">
                <font>
                   <Font name="System Bold" size="13.0" />
