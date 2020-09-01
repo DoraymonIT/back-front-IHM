@@ -71,6 +71,14 @@ public class Product {
 		this.categorie = categorie;
 		this.description = description;
 	}
+	public Product( String nom, String price, Categorie categorie) {
+		super();
+		
+		this.nom = nom;
+		this.price = price;
+		this.categorie = categorie;
+		
+	}
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", nom=" + nom + ", price=" + price + ", categorie=" + categorie + ", description="

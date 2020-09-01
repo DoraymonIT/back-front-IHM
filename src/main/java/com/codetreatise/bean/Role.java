@@ -19,18 +19,18 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name="Categorie")
-public class Categorie {
+@Table(name="Role")
+public class Role {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", updatable = false, nullable = false)
     Long id;
     String libelle;
-	public Categorie() {
+	public Role() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Categorie(Long id, String libelle) {
+	public Role(Long id, String libelle) {
 		super();
 		this.id = id;
 		this.libelle = libelle;

@@ -5,37 +5,36 @@
  */
 package com.codetreatise.controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
-import com.codetreatise.bean.Employee;
+import com.codetreatise.bean.Categorie;
+import com.codetreatise.bean.Commande;
+import com.codetreatise.bean.Role;
+import com.codetreatise.bean.User;
 import com.codetreatise.config.StageManager;
+import com.codetreatise.repository.RoleDao;
+import com.codetreatise.repository.UserRepository;
 import com.codetreatise.view.FxmlView;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 /**
  * FXML Controller class
@@ -47,50 +46,62 @@ public class EmployyeGestionController implements Initializable {
 	@Lazy
     @Autowired	
     private StageManager stageManager;
-    @FXML
-    private JFXTextField fonction;
 
     @FXML
     private JFXTextField nomPrenom;
-
-
-
-    @FXML
-    private TableView<Employee> tableEmployes;
-
+@Autowired
+private UserRepository userRepo;
 
     @FXML
-    private TableColumn<Employee, String> nomPrenomTable;
+    private TableView<User> tableEmployes;
 
     @FXML
-    private TableColumn<Employee, String> fonctionTable;
+    private TableColumn<User, String> fonctionTable;
 
-    ObservableList<Employee> employes = FXCollections.observableArrayList();
+    @FXML
+    private TableColumn<User, String> cne;
 
+    @FXML
+    private TableColumn<User, String> nomTable;
+
+    @FXML
+    private TableColumn<User, String> prenomTable;
+    @FXML
+    private JFXComboBox<Role> fonctionComboBox;
+    
+    ObservableList<User> employes = FXCollections.observableArrayList();
+
+    @Autowired
+    private RoleDao roleDao ;
+    
     @FXML
     void enregitrer(ActionEvent e) {
 
         String c2 = nomPrenom.getText();
-        String c3 = fonction.getText();
+//        String 
+//        String c3 = fonction.getText();
+        Role c4 = fonctionComboBox.getSelectionModel().getSelectedItem();
 
-        if ( c2 == null || c3 == null) {
+        if ( c2 == null) {
             Alert l = new Alert(Alert.AlertType.WARNING);
             l.setContentText("Veuillez Entrez d abord tous les informations !!");
             l.setTitle("Ouuups !!!");
             l.showAndWait();
 
         } else {
-            employes.add(new Employee( c2, c3));
+//        	User userNew = new User(c, c1, c2, c3);
+//			roleDao.save(userNew);
+//            employes.add(new Employee( c2, c3));
             tableEmployes.getItems().clear();
             tableEmployes.getItems().setAll(employes());
 
             nomPrenom.setText("");
-            fonction.setText("");
+//            fonction.setText("");
 
         }
 
     }
-    Employee employeeSelected = null;
+    User employeeSelected = null;
 
 
 
@@ -120,17 +131,34 @@ public class EmployyeGestionController implements Initializable {
         // TODO
 
 
-        nomPrenomTable.setCellValueFactory(new PropertyValueFactory<>("nomComplet"));
-        fonctionTable.setCellValueFactory(new PropertyValueFactory<>("fonction"));
-
-        tableEmployes.getItems().setAll(employes());
+        cne.setCellValueFactory(new PropertyValueFactory<>("cne"));
+        nomTable.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        prenomTable.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        fonctionTable.setCellValueFactory(new PropertyValueFactory<>("role"));
+        tableEmployes.getItems().setAll(userRepo.findAll());
 
         tableEmployes.setOnMousePressed((MouseEvent event) -> {
             employeeSelected = tableEmployes.getSelectionModel().getSelectedItem();
         });
+        fonctionComboBox.setConverter(new StringConverter<Role>() {
+
+			@Override
+			public Role fromString(String string) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public String toString(Role object) {
+				// TODO Auto-generated method stub
+				return object.getLibelle();
+			}
+		});
+        fonctionComboBox.setItems(FXCollections.observableArrayList(
+               roleDao.findAll()));
     }
 
-    private ObservableList<Employee> employes() {
+    private ObservableList<User> employes() {
 //employes.add(new Employee("12-24", "Mohmmad", "moulL-7anouta"));
         return employes;
     }

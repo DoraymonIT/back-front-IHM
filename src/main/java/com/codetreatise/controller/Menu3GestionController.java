@@ -18,6 +18,8 @@ import org.springframework.stereotype.Controller;
 import com.codetreatise.bean.Categorie;
 import com.codetreatise.bean.Product;
 import com.codetreatise.config.StageManager;
+import com.codetreatise.repository.CategorieDao;
+import com.codetreatise.service.ProduitService;
 import com.codetreatise.view.FxmlView;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
@@ -79,6 +81,11 @@ public class Menu3GestionController implements Initializable {
     private TableColumn<Categorie, String> categorieTable;
     Product platSelected = null;
 
+    @Autowired
+    private CategorieDao categorieDao;
+    @Autowired
+    private ProduitService produitService;
+    
     @FXML
     protected void locateFile(ActionEvent event) {
         FileChooser chooser = new FileChooser();
@@ -95,10 +102,10 @@ public class Menu3GestionController implements Initializable {
         String c1 = nomPlat.getText();
         String c2 = prixPlat.getText();
         Categorie c3 = categoriePlat.getSelectionModel().getSelectedItem();
+Product newProduct =  new Product(c1, c2, c3);
+produitService.save(newProduct);
 
-//        plats.add(new Product(c1, c2, c3));
-        tableProduits.getItems().clear();
-        tableProduits.getItems().setAll(plats());
+tableProduits.getItems().setAll(produitService.findAll());
         nomPlat.setText("");
         prixPlat.setText("");
         categoriePlat.getSelectionModel().clearSelection();
@@ -132,7 +139,7 @@ public class Menu3GestionController implements Initializable {
         prixTable.setCellValueFactory(new PropertyValueFactory<>("price"));
         categorieTable.setCellValueFactory(new PropertyValueFactory<>("categorie"));
 
-        tableProduits.getItems().setAll(plats());
+        tableProduits.getItems().setAll(produitService.findAll());
 
         tableProduits.setOnMousePressed((MouseEvent event) -> {
             platSelected = tableProduits.getSelectionModel().getSelectedItem();
@@ -149,10 +156,8 @@ public class Menu3GestionController implements Initializable {
             }
 
         });
-//        categoriePlat.setItems(FXCollections.observableArrayList(
-//                new Categorie("Entree"),
-//                new Categorie("Plat Principale"),
-//                new Categorie("Drink")));
+        categoriePlat.setItems(FXCollections.observableArrayList(
+               categorieDao.findAll()));
     }
 
     private ObservableList<Product> plats() {

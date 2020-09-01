@@ -165,7 +165,7 @@ public class UserController implements Initializable{
     				User user = new User();
         			user.setFirstName(getFirstName());
         			user.setLastName(getLastName());
-        			user.setDob(getDob());
+//        			user.setDob(getDob());
         			user.setGender(getGender());
         			user.setRole(getRole());
         			user.setEmail(getEmail());
@@ -180,7 +180,7 @@ public class UserController implements Initializable{
     			User user = userService.find(Long.parseLong(userId.getText()));
     			user.setFirstName(getFirstName());
     			user.setLastName(getLastName());
-    			user.setDob(getDob());
+//    			user.setDob(getDob());
     			user.setGender(getGender());
     			user.setRole(getRole());
     			User updatedUser =  userService.update(user);
@@ -368,7 +368,7 @@ public class UserController implements Initializable{
 					userId.setText(Long.toString(user.getId()));
 					firstName.setText(user.getFirstName());
 					lastName.setText(user.getLastName());
-					dob.setValue(user.getDob());
+//					dob.setValue(user.getDob());
 					if(user.getGender().equals("Male")) rbMale.setSelected(true);
 					else rbFemale.setSelected(true);
 					cbRole.getSelectionModel().select(user.getRole());

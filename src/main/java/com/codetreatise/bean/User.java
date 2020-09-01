@@ -27,7 +27,7 @@ public class User {
 	
 	private String lastName;
 	
-	private LocalDate dob;
+	private String cne;
 	
 	private String gender;
 	
@@ -38,6 +38,24 @@ public class User {
 	private String password;
 
 	
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public User(long id, String firstName, String lastName, String cne, String gender, String role, String email,
+			String password) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.cne = cne;
+		this.gender = gender;
+		this.role = role;
+		this.email = email;
+		this.password = password;
+	}
+
 	public long getId() {
 		return id;
 	}
@@ -62,12 +80,12 @@ public class User {
 		this.lastName = lastName;
 	}
 	
-	public LocalDate getDob() {
-		return dob;
+	public String getCne() {
+		return cne;
 	}
 
-	public void setDob(LocalDate dob) {
-		this.dob = dob;
+	public void setCne(String cne) {
+		this.cne = cne;
 	}
 	
 	public String getGender() {
@@ -104,9 +122,10 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dob=" + dob + ", email="
-				+ email + "]";
+		return "User [Nom Complet " + firstName + lastName + ", role=" + role + "]";
 	}
+
+	
 
 	
 }

@@ -1,10 +1,7 @@
 package com.codetreatise.controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -16,12 +13,7 @@ import com.jfoenix.controls.JFXButton;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 @Controller
 public class AdminSideController implements Initializable {
@@ -55,7 +47,6 @@ public class AdminSideController implements Initializable {
     private JFXButton exitButton;
     @FXML
     void employees(ActionEvent event) {
-
     	stageManager.switchScene(FxmlView.HrMangement);
     }
 
