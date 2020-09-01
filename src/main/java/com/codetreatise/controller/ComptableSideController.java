@@ -23,9 +23,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.ResourceUtils;
 
 import com.codetreatise.bean.Commande;
+import com.codetreatise.bean.Facture;
 import com.codetreatise.bean.Product;
 import com.codetreatise.config.StageManager;
 import com.codetreatise.repository.CommandeDao;
+import com.codetreatise.repository.FactureDao;
 import com.codetreatise.repository.ProduitDao;
 import com.codetreatise.view.FxmlView;
 import com.jfoenix.controls.JFXButton;
@@ -128,6 +130,8 @@ public class ComptableSideController implements Initializable {
 	@Autowired
 	private ProduitDao produitDao;
 	ObservableList<Commande> commandes = FXCollections.observableArrayList();
+	@Autowired
+	private FactureDao factureDao;
 
 	private ObservableList<Commande> products() {
 //        commandes.addAll(new Commande(1, 12, "Entree1", "Plat1", "Drink1"),
@@ -152,29 +156,33 @@ public class ComptableSideController implements Initializable {
 	}
 
 	@FXML
-    void detailles(ActionEvent event) {
-        if (commandesSelected != null) {
-        	Long idSelected = commandesSelected.getId();
-        	Commande c = commandeDao.findOne(idSelected);
-            Date d = new Date();
-            date.setText(d.toString());
-            adresse.setText("1030,Rue Marrakech");
-            prixE.setText(produitDao.findByNom(c.getEntree()).getPrice()+" DH ") ;
-            prixP.setText(produitDao.findByNom(c.getPlat()).getPrice()+" DH ");
-            prixD.setText(produitDao.findByNom(c.getBoire()).getPrice()+" DH ");
-            
-            Double a = Double.parseDouble(produitDao.findByNom(c.getEntree()).getPrice())  +
-            		 Double.parseDouble(produitDao.findByNom(c.getPlat()).getPrice()) +
-            		 Double.parseDouble(produitDao.findByNom(c.getBoire()).getPrice());
-            
-            
-            totalCalculer.setText(a.toString()+" DH ");
-            phone.setText("+212-6-66-66-66");
-            entreeDemande.setText(c.getEntree());
-            platDemande.setText(c.getPlat());
-            DrinkDemande.setText(c.getBoire());
-        }
-    }
+	void detailles(ActionEvent event) {
+		if (commandesSelected != null) {
+			Long idSelected = commandesSelected.getId();
+			Commande c = commandeDao.findOne(idSelected);
+			Date d = new Date();
+
+			date.setText(d.toString());
+			adresse.setText("1030,Rue Marrakech");
+			prixE.setText(produitDao.findByNom(c.getEntree()).getPrice() + " DH ");
+			prixP.setText(produitDao.findByNom(c.getPlat()).getPrice() + " DH ");
+			prixD.setText(produitDao.findByNom(c.getBoire()).getPrice() + " DH ");
+
+			Double a = Double.parseDouble(produitDao.findByNom(c.getEntree()).getPrice())
+					+ Double.parseDouble(produitDao.findByNom(c.getPlat()).getPrice())
+					+ Double.parseDouble(produitDao.findByNom(c.getBoire()).getPrice());
+
+			totalCalculer.setText(a.toString() + " DH ");
+			phone.setText("+212-6-66-66-66");
+			Facture facture = new Facture("Facture" + idSelected, c.getEntree(), c.getPlat(), c.getBoire(),
+					produitDao.findByNom(c.getEntree()).getPrice(), produitDao.findByNom(c.getPlat()).getPrice(),
+					produitDao.findByNom(c.getBoire()).getPrice(), a.toString(), d);
+factureDao.save(facture);
+			entreeDemande.setText(c.getEntree());
+			platDemande.setText(c.getPlat());
+			DrinkDemande.setText(c.getBoire());
+		}
+	}
 
 	@FXML
 	void deconnecter(ActionEvent event) {
@@ -185,11 +193,12 @@ public class ComptableSideController implements Initializable {
 	void setParentController(LoginController aThis) {
 		documentController = aThis;
 	}
-@FXML
-public void imprimer() throws FileNotFoundException, JRException {
-	exportReport("pdf");
-}
-	
+
+	@FXML
+	public void imprimer() throws FileNotFoundException, JRException {
+		exportReport("pdf");
+	}
+
 	public String exportReport(String reportFormat) throws FileNotFoundException, JRException {
 		String path = "C:\\Users";
 		Commande employees = commandesSelected;
