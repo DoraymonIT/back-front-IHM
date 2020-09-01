@@ -78,7 +78,7 @@ if(userService.authenticate(userselected.getEmail(), pass)) {
 		}
 }
 		 else {
-			some();
+//			some();
 			Alert l = new Alert(Alert.AlertType.ERROR);
 			l.setContentText("Wa si mohamed rakk ghi tat5rrb9 asMeyttk -> " + user);
 			l.setHeaderText("Chi 7ajja Wsf ");

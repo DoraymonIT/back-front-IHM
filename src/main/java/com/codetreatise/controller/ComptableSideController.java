@@ -7,15 +7,13 @@ package com.codetreatise.controller;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -24,7 +22,6 @@ import org.springframework.util.ResourceUtils;
 
 import com.codetreatise.bean.Commande;
 import com.codetreatise.bean.Facture;
-import com.codetreatise.bean.Product;
 import com.codetreatise.config.StageManager;
 import com.codetreatise.repository.CommandeDao;
 import com.codetreatise.repository.FactureDao;
@@ -36,17 +33,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -178,6 +171,8 @@ public class ComptableSideController implements Initializable {
 					produitDao.findByNom(c.getEntree()).getPrice(), produitDao.findByNom(c.getPlat()).getPrice(),
 					produitDao.findByNom(c.getBoire()).getPrice(), a.toString(), d);
 factureDao.save(facture);
+commandeDao.delete(c);
+tableCommandes.getItems().setAll(commandeDao.findAll());
 			entreeDemande.setText(c.getEntree());
 			platDemande.setText(c.getPlat());
 			DrinkDemande.setText(c.getBoire());
@@ -196,27 +191,49 @@ factureDao.save(facture);
 
 	@FXML
 	public void imprimer() throws FileNotFoundException, JRException {
-		exportReport("pdf");
+		Alert l = new Alert(Alert.AlertType.INFORMATION);
+		l.setContentText("La facture a ete bien enregistree sous format PDF , Veuillez vous dirigez vers le path :"+
+				exportReport("pdf"));
+		l.setHeaderText("Facture est Bien Genere");
+		l.setTitle("Reussite de generation de facture");
+		
+		l.showAndWait();
+		
+		 
+		date.setText("");
+		adresse.setText("");
+		prixE.setText("");
+		prixP.setText("");
+		prixD.setText("");
+		entreeDemande.setText("");
+		platDemande.setText("");
+		DrinkDemande.setText("");
+		totalCalculer.setText("");
+		phone.setText("");
 	}
 
 	public String exportReport(String reportFormat) throws FileNotFoundException, JRException {
 		String path = "C:\\Users";
-		Commande employees = commandesSelected;
+		tableCommandes.setOnMousePressed((MouseEvent event) -> {
+			commandesSelected = tableCommandes.getSelectionModel().getSelectedItem();
+		});
+		Long idSelected = commandesSelected.getId();
+		List<Facture> factura = factureDao.findByLibelle("Facture" + idSelected);
 		// load file and compile it
-		File file = ResourceUtils.getFile("classpath:produits.jrxml");
+		File file = ResourceUtils.getFile("classpath:factura.jrxml");
 		JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource((Collection<?>) employees);
+		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource((Collection<Facture>) factura);
 		Map<String, Object> parameters = new HashMap<>();
-		parameters.put("createdBy", "Bendrimou Ayoub");
+//		parameters.put("createdBy", "Bendrimou Ayoub");
 		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
 		if (reportFormat.equalsIgnoreCase("html")) {
 			JasperExportManager.exportReportToHtmlFile(jasperPrint, path + "\\" + "produits" + ".html");
 		}
 		if (reportFormat.equalsIgnoreCase("pdf")) {
-			JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\" + "produits" + ".pdf");
+			JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\" + "Facture-"+idSelected + ".pdf");
 		}
 
-		return "report generated in path : " + path;
+		return path;
 	}
 
 }

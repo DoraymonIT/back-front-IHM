@@ -133,7 +133,7 @@
          <font>
             <Font name="System Bold" size="23.0" />
          </font></Label>
-      <JFXButton fx:id="imprimer" buttonType="RAISED" layoutX="574.0" layoutY="444.0" prefHeight="29.0" prefWidth="210.0" style="-fx-background-color: yellow;" text="Imprimer" textFill="#110000">
+      <JFXButton fx:id="imprimer" onAction="#imprimer" buttonType="RAISED" layoutX="574.0" layoutY="444.0" prefHeight="29.0" prefWidth="210.0" style="-fx-background-color: yellow;" text="Imprimer" textFill="#110000">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
