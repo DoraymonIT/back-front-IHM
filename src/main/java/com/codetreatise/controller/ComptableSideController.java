@@ -155,7 +155,7 @@ public class ComptableSideController implements Initializable {
 			Commande c = commandeDao.findOne(idSelected);
 			Date d = new Date();
 
-			date.setText(d.toString());
+			date.setText(d.toInstant().toString());
 			adresse.setText("1030,Rue Marrakech");
 			prixE.setText(produitDao.findByNom(c.getEntree()).getPrice() + " DH ");
 			prixP.setText(produitDao.findByNom(c.getPlat()).getPrice() + " DH ");
@@ -191,9 +191,13 @@ tableCommandes.getItems().setAll(commandeDao.findAll());
 
 	@FXML
 	public void imprimer() throws FileNotFoundException, JRException {
+		tableCommandes.setOnMousePressed((MouseEvent event) -> {
+			commandesSelected = tableCommandes.getSelectionModel().getSelectedItem();
+		});
+		Long idSelected = commandesSelected.getId();
 		Alert l = new Alert(Alert.AlertType.INFORMATION);
 		l.setContentText("La facture a ete bien enregistree sous format PDF , Veuillez vous dirigez vers le path :"+
-				exportReport("pdf"));
+				exportReport("pdf") +" "+" sous le nom : Facture-"+idSelected);
 		l.setHeaderText("Facture est Bien Genere");
 		l.setTitle("Reussite de generation de facture");
 		
